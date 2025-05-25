@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encantos Da Terra - Produtos Frescos do Sítio</title>
+    <meta name="description" content="Compre produtos frescos diretamente do sítio Encantos da Terra. Frutas, verduras, laticínios e muito mais!">
+    <meta name="keywords" content="produtos orgânicos, feira delivery, comprar frutas frescas, verduras, laticínios naturais">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barra Superior -->
+    <header class="top-header">
+        <button class="menu-btn" onclick="openSidebar()">☰</button>
+        <img src="./imagens/logo_sitio.png" alt="Logo Encantos Da Terra" class="logo">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar por produto">
+            <button class="search-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+        <button class="cart-btn" onclick="openCart()">
+            🛒
+            <span class="cart-counter"></span>
+        </button>
+    </header>
+
+    <!-- Seção de Banners Promocionais -->
+    <section class="banners-container">
+        <div class="promo-banner active">
+            <img src="./banners/semana-cliente.png" alt="Semana do Cliente - Ofertas especiais">
+        </div>
+        <div class="promo-banner">
+            <img src="./banners/morangos-oferta.png" alt="Semana Caliente - Caixa de Morangos R$5,99">
+        </div>
+        <div class="promo-banner">
+            <img src="./banners/6-por-5.png" alt="Semana Caliente - Leve 6 pague 5">
+        </div>
+    </section>
+
+    <!-- Menu Lateral -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="close-btn" onclick="closeSidebar()">
+                <svg class="close-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+        </div>
+        
+        <img src="./imagens/logo_sitio.png" alt="Logo Encantos Da Terra" class="logo-sidebar">
+        
+        <div class="sidebar-content">
+            <div class="history-section">
+                <h3>Nossa História</h3>
+                <p class="history-text">
+                    O Sítio Encantos da Terra foi fundado pela Srª Lurdes em 1995, com o sonho de oferecer produtos frescos e saudáveis diretamente da fazenda para sua mesa. Com muito amor e dedicação, cultivamos frutas, verduras e laticínios de qualidade, preservando a tradição e o sabor da roça.
+                </p>
+            </div>
+            
+            <div class="social-section">
+                <h3>Nos Acompanhe</h3>
+                <div class="social-icons">
+                    <a href="https://wa.me/SEUNUMERO" target="_blank" class="whatsapp-icon">
+                        <img src="./Icons/whatsapp.png" alt="WhatsApp">
+                    </a>
+                    <a href="https://instagram.com/encantos_da_terra25" target="_blank" class="instagram-icon">
+                        <img src="./Icons/instagram.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Carrinho -->
+    <div id="cart" class="cart">
+        <div class="cart-header">
+            <h2>Seu Carrinho</h2>
+            <button class="close-btn" onclick="closeCart()">
+                <svg class="close-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-body">
+            <ul id="cart-items">
+                <li>Seu carrinho está vazio</li>
+            </ul>
+        </div>
+        <div class="cart-footer">
+            <button class="checkout-btn" onclick="checkout()">Fechar Compra via WhatsApp</button>
+            <button class="continue-btn" onclick="closeCart()">Continuar Comprando</button>
+        </div>
+    </div>
+
+    <!-- Filtros de Categoria -->
+    <div class="category-filters">
+        <button class="category-btn active" data-category="todos">Todos</button>
+        <button class="category-btn" data-category="frutas">Frutas</button>
+        <button class="category-btn" data-category="verduras">Verduras</button>
+        <button class="category-btn" data-category="laticinios">Laticínios</button>
+        <button class="category-btn" data-category="geleias-doces">Geléias & Doces</button>
+        <button class="category-btn" data-category="temperos">Temperos</button>
+    </div>
+
+    <!-- Container de Produtos -->
+    <div class="products-container">
+        <h2>Nossos Produtos <span class="category-title">(Todos)</span></h2>
+        <div class="products-grid">
+            <!-- Frutas -->
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Abacaxi" onclick="toggleWishlist('Abacaxi', this)">🤍</button>
+                <img src="./imagens/abacaxi.png" alt="Abacaxi">
+                <h3>Abacaxi</h3>
+                <p>R$ 6,90/un</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Abacaxi', 6.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Banana" onclick="toggleWishlist('Banana', this)">🤍</button>
+                <img src="./imagens/banana.png" alt="Banana">
+                <h3>Banana</h3>
+                <p>R$ 4,99/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Banana', 4.99, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Laranja" onclick="toggleWishlist('Laranja', this)">🤍</button>
+                <img src="./imagens/laranja.avif" alt="Laranja">
+                <h3>Laranja</h3>
+                <p>R$ 4,50/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Laranja', 4.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Limão" onclick="toggleWishlist('Limão', this)">🤍</button>
+                <img src="./imagens/limão.avif" alt="Limão">
+                <h3>Limão</h3>
+                <p>R$ 3,99/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Limão', 3.99, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Maçã" onclick="toggleWishlist('Maçã', this)">🤍</button>
+                <img src="./imagens/maça.png" alt="Maçã">
+                <h3>Maçã</h3>
+                <p>R$ 5,20/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Maçã', 5.20, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Mamão" onclick="toggleWishlist('Mamão', this)">🤍</button>
+                <img src="./imagens/mamão.jpg" alt="Mamão">
+                <h3>Mamão</h3>
+                <p>R$ 5,90/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Mamão', 5.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Manga" onclick="toggleWishlist('Manga', this)">🤍</button>
+                <img src="./imagens/manga.jpeg" alt="Manga">
+                <h3>Manga</h3>
+                <p>R$ 6,00/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Manga', 6.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Melancia" onclick="toggleWishlist('Melancia', this)">🤍</button>
+                <img src="./imagens/melancia.avif" alt="Melancia">
+                <h3>Melancia</h3>
+                <p>R$ 2,30/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Melancia', 2.30, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Morango" onclick="toggleWishlist('Morango', this)">🤍</button>
+                <img src="./imagens/MORANGO.png" alt="Morango">
+                <h3>Morango</h3>
+                <p>R$ 7,00/caixa</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Morango', 7.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="frutas">
+                <button class="wishlist-btn" data-product="Uva" onclick="toggleWishlist('Uva', this)">🤍</button>
+                <img src="./imagens/uva.png" alt="Uva">
+                <h3>Uva</h3>
+                <p>R$ 7,50/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Uva', 7.50, event)">Adicionar</button>
+                </div>
+            </div>
+
+            <!-- Verduras -->
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Alface" onclick="toggleWishlist('Alface', this)">🤍</button>
+                <img src="./imagens/alface.webp" alt="Alface">
+                <h3>Alface</h3>
+                <p>R$ 2,50/un</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Alface', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Brócolis" onclick="toggleWishlist('Brócolis', this)">🤍</button>
+                <img src="./imagens/brocolis.png" alt="Brócolis">
+                <h3>Brócolis</h3>
+                <p>R$ 3,80/un</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Brócolis', 3.80, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Cebolinha" onclick="toggleWishlist('Cebolinha', this)">🤍</button>
+                <img src="./imagens/cebolinha.avif" alt="Cebolinha">
+                <h3>Cebolinha</h3>
+                <p>R$ 2,00/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Cebolinha', 2.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Repolho" onclick="toggleWishlist('Repolho', this)">🤍</button>
+                <img src="./imagens/repolho.jpg" alt="Repolho">
+                <h3>Repolho</h3>
+                <p>R$ 3,00/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Repolho', 3.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Rúcula" onclick="toggleWishlist('Rúcula', this)">🤍</button>
+                <img src="./imagens/rúcula.avif" alt="Rúcula">
+                <h3>Rúcula</h3>
+                <p>R$ 2,00/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Rúcula', 2.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="verduras">
+                <button class="wishlist-btn" data-product="Mix para Sopa" onclick="toggleWishlist('Mix para Sopa', this)">🤍</button>
+                <img src="./imagens/mix de sopa.png" alt="Mix para Sopa">
+                <h3>Mix para Sopa</h3>
+                <p>R$ 5,50/pacote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Mix para Sopa', 5.50, event)">Adicionar</button>
+                </div>
+            </div>
+
+            <!-- Geléias & Doces -->
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Geleia de Figo" onclick="toggleWishlist('Geleia de Figo', this)">🤍</button>
+                <img src="./imagens/geleia de figo.jpg" alt="Geleia de Figo">
+                <h3>Geleia de Figo</h3>
+                <p>R$ 8,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Geleia de Figo', 8.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Geleia de Morango" onclick="toggleWishlist('Geleia de Morango', this)">🤍</button>
+                <img src="./imagens/geleia_morango.png" alt="Geleia de Morango">
+                <h3>Geleia de Morango</h3>
+                <p>R$ 8,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Geleia de Morango', 8.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Geleia de Pêssego" onclick="toggleWishlist('Geleia de Pêssego', this)">🤍</button>
+                <img src="./imagens/geleia de pessego.jpg" alt="Geleia de Pêssego">
+                <h3>Geleia de Pêssego</h3>
+                <p>R$ 8,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Geleia de Pêssego', 8.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Geleia de Uva" onclick="toggleWishlist('Geleia de Uva', this)">🤍</button>
+                <img src="./imagens/geleia de uva.jpeg" alt="Geleia de Uva">
+                <h3>Geleia de Uva</h3>
+                <p>R$ 8,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Geleia de Uva', 8.90, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Doce de Abóbora" onclick="toggleWishlist('Doce de Abóbora', this)">🤍</button>
+                <img src="./imagens/doce de abóbora.png" alt="Doce de Abóbora">
+                <h3>Doce de Abóbora</h3>
+                <p>R$ 7,50/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Doce de Abóbora', 7.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Doce de Banana" onclick="toggleWishlist('Doce de Banana', this)">🤍</button>
+                <img src="./imagens/doce de banana.jpeg" alt="Doce de Banana">
+                <h3>Doce de Banana</h3>
+                <p>R$ 7,50/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Doce de Banana', 7.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="geleias-doces">
+                <button class="wishlist-btn" data-product="Doce de Leite" onclick="toggleWishlist('Doce de Leite', this)">🤍</button>
+                <img src="./imagens/doce de leite.jpeg" alt="Doce de Leite">
+                <h3>Doce de Leite</h3>
+                <p>R$ 9,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Doce de Leite', 9.90, event)">Adicionar</button>
+                </div>
+            </div>
+
+            <!-- Laticínios -->
+            <div class="product-card" data-category="laticinios">
+                <button class="wishlist-btn" data-product="Leite" onclick="toggleWishlist('Leite', this)">🤍</button>
+                <img src="./imagens/Leite.jpeg" alt="Leite">
+                <h3>Leite</h3>
+                <p>R$ 4,00/L</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Leite', 4.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="laticinios">
+                <button class="wishlist-btn" data-product="Manteiga" onclick="toggleWishlist('Manteiga', this)">🤍</button>
+                <img src="./imagens/manteiga.png" alt="Manteiga">
+                <h3>Manteiga</h3>
+                <p>R$ 6,50/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Manteiga', 6.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="laticinios">
+                <button class="wishlist-btn" data-product="Queijo" onclick="toggleWishlist('Queijo', this)">🤍</button>
+                <img src="./imagens/queijo.png" alt="Queijo">
+                <h3>Queijo</h3>
+                <p>R$ 12,00/kg</p>
+                <div class="product-actions" data-unit="kg">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Queijo', 12.00, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="laticinios">
+                <button class="wishlist-btn" data-product="Requeijão" onclick="toggleWishlist('Requeijão', this)">🤍</button>
+                <img src="./imagens/requeijão.jpeg" alt="Requeijão">
+                <h3>Requeijão</h3>
+                <p>R$ 5,90/pote</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Requeijão', 5.90, event)">Adicionar</button>
+                </div>
+            </div>
+
+            <!-- Temperos -->
+            <div class="product-card" data-category="temperos">
+                <button class="wishlist-btn" data-product="Alecrim" onclick="toggleWishlist('Alecrim', this)">🤍</button>
+                <img src="./imagens/alecrim.png" alt="Alecrim">
+                <h3>Alecrim</h3>
+                <p>R$ 2,50/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Alecrim', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="temperos">
+                <button class="wishlist-btn" data-product="Hortelã" onclick="toggleWishlist('Hortelã', this)">🤍</button>
+                <img src="./imagens/hortelã.png" alt="Hortelã">
+                <h3>Hortelã</h3>
+                <p>R$ 2,50/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Hortelã', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="temperos">
+                <button class="wishlist-btn" data-product="Orégano" onclick="toggleWishlist('Orégano', this)">🤍</button>
+                <img src="./imagens/oregano.avif" alt="Orégano">
+                <h3>Orégano</h3>
+                <p>R$ 2,50/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Orégano', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="temperos">
+                <button class="wishlist-btn" data-product="Sálvia" onclick="toggleWishlist('Sálvia', this)">🤍</button>
+                <img src="./imagens/salvia.png" alt="Sálvia">
+                <h3>Sálvia</h3>
+                <p>R$ 2,50/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Sálvia', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="temperos">
+                <button class="wishlist-btn" data-product="Tomilho" onclick="toggleWishlist('Tomilho', this)">🤍</button>
+                <img src="./imagens/tomilho.jpeg" alt="Tomilho">
+                <h3>Tomilho</h3>
+                <p>R$ 2,50/maço</p>
+                <div class="product-actions" data-unit="un">
+                    <input type="number" class="quantity-input" min="1" value="1">
+                    <button onclick="addToCart('Tomilho', 2.50, event)">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes do Produto -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalProductImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalProductName"></h2>
+                    <p id="modalProductPrice" class="price"></p>
+                    <p id="modalProductUnit" class="unit"></p>
+                    <div class="weight-selector" id="weightSelector">
+                        <label for="product-weight">Quantidade (gramas):</label>
+                        <input type="number" id="product-weight" min="100" step="100" value="1000">
+                        <span>(1kg = 1000g)</span>
+                    </div>
+                    <p id="modalCalculatedPrice" class="calculated-price">Total: R$ 0,00</p>
+                    <p id="modalProductDescription" class="description">Produto fresco direto do sítio Encantos da Terra.</p>
+                    <div class="product-actions">
+                        <input type="number" class="quantity-input" min="1" value="1">
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VLibras Plugin -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

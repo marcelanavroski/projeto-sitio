@@ -768,6 +768,14 @@ body {
 }
 
 @media (max-width: 768px) {
+    button:hover {
+  background-color: #357a38;
+  transform: scale(1.05);
+}
+}
+
+
+@media (max-width: 768px) {
     .top-header {
         flex-wrap: wrap;
         padding: 10px;

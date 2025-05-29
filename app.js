@@ -1,16 +1,11 @@
-// =============================================
 // Variáveis Globais
-// =============================================
 let cartItems = JSON.parse(localStorage.getItem('encantos-cart'))?.items || [];
 let wishlist = JSON.parse(localStorage.getItem('encantos-wishlist')) || [];
 let bannerInterval;
 let currentProduct = null;
 let isModalOpen = false;
 
-// =============================================
-// Funções do Carrinho (Corrigidas)
-// =============================================
-
+// Funções do Carrinho 
 function openCart() {
     document.getElementById('cart').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -30,8 +25,6 @@ function addToCart(productName, productPrice, event, weight = null) {
 
     const fromModal = event?.target?.closest('.modal');
     const productCard = event?.target?.closest('.product-card');
-
-    // Usa 'unit' de forma segura
     let unit = 'un';
     if (fromModal && currentProduct) {
         unit = currentProduct.unit;
@@ -39,7 +32,6 @@ function addToCart(productName, productPrice, event, weight = null) {
         unit = productCard?.querySelector('.product-actions')?.dataset.unit || 'un';
     }
 
-    // Quantidade
     let quantity = 1;
     if (fromModal) {
         const modalQty = document.querySelector('.modal .quantity-input');
@@ -49,7 +41,6 @@ function addToCart(productName, productPrice, event, weight = null) {
         quantity = cardQty ? parseInt(cardQty.value) || 1 : 1;
     }
 
-    // Cálculo de preço
     let finalPrice = productPrice;
     let displayName = productName;
     let itemWeight = null;
@@ -60,7 +51,7 @@ function addToCart(productName, productPrice, event, weight = null) {
         displayName = `${productName} (${itemWeight}g)`;
     }
 
-    // Adiciona como novo item SEMPRE
+
     const newItem = {
         name: displayName,
         price: finalPrice,
@@ -317,9 +308,8 @@ document.addEventListener('DOMContentLoaded', () => {
         banners[0].classList.add('active');
     }
 });
-// =============================================
-// Funções de Wishlist (Favoritos)
-// =============================================
+
+// Funções de Wishlist
 
 function toggleWishlist(productName, element) {
     const index = wishlist.indexOf(productName);
@@ -344,10 +334,8 @@ function updateWishlistIcons() {
     });
 }
 
-// =============================================
-// Funções do Menu Lateral
-// =============================================
 
+// Funções do Menu Lateral
 function openSidebar() {
     document.getElementById('sidebar').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -369,10 +357,7 @@ function closeOnClickOutside(event) {
     }
 }
 
-// =============================================
 // Funções dos Banners
-// =============================================
-
 function rotateBanners() {
     const banners = document.querySelectorAll('.promo-banner');
     if (!banners.length) return;
@@ -395,10 +380,7 @@ function setupBannerRotation() {
     }
 }
 
-// =============================================
 // Funções de Filtro e Busca
-// =============================================
-
 function filterProducts(category) {
     const products = document.querySelectorAll('.product-card');
     const categoryTitle = document.querySelector('.category-title');
@@ -434,10 +416,7 @@ function setupSearch() {
     });
 }
 
-// =============================================
 // Notificações e Alertas
-// =============================================
-
 function showAddedToCartMessage(productName, quantity) {
     const message = document.createElement('div');
     message.className = 'cart-notification';
@@ -468,10 +447,7 @@ function showAlert(message, type = 'success') {
     }, 3000);
 }
 
-// =============================================
 // Eventos Globais
-// =============================================
-
 function setupEventListeners() {
     document.addEventListener('click', (e) => {
         if (e.target.closest('.remove-item')) return;

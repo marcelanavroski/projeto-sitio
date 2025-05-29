@@ -179,7 +179,7 @@ function checkout() {
     const total = calculateTotal();
     const message = `Olá, gostaria de fazer o seguinte pedido:\\n\\n${itemsText}\\n\\n💵 *Total: R$ ${total}*\\n\\nPor favor, confirme a disponibilidade.`;
 
-    window.open(`https://wa.me/SEUNUMERO?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/+5541996942725?text=${encodeURIComponent(message)}`, '_blank');
 }
 function openProductModal(product) {
     if (isModalOpen) return;

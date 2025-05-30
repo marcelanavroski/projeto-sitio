@@ -158,29 +158,43 @@ function updateCartCounter() {
     }
 }
 
+
 function checkout() {
     if (cartItems.length === 0) {
         showAlert('Seu carrinho está vazio!', 'error');
         return;
     }
 
-    const itemsText = cartItems.map(item => {
-        let itemText = `➡ ${item.name} - ${item.quantity}x`;
+    const itensFormatados = cartItems.map(item => {
+        const nome = item.name;
+        const quant = item.quantity;
+        const preco = (item.price * quant).toFixed(2).replace('.', ',');
 
         if (item.unit === 'kg' && item.weight) {
-            const pricePerKg = item.basePrice.toFixed(2);
-            itemText += ` (${item.weight}g a R$ ${pricePerKg}/kg)`;
+            const peso = item.weight;
+            const precoKg = item.basePrice.toFixed(2).replace('.', ',');
+            const pesoKg = peso >= 1000 ? `${peso / 1000} kg` : `${peso}g`;
+            return `• ${nome} – ${pesoKg} (R$ ${precoKg}/kg) – R$ ${preco}`;
+        } else {
+            return `• ${nome} – ${quant} un – R$ ${preco}`;
         }
+    }).join('\n');
 
-        itemText += ` - R$ ${(item.price * item.quantity).toFixed(2)}`;
-        return itemText;
-    }).join('\\n');
+    const total = calculateTotal().replace('.', ',');
 
-    const total = calculateTotal();
-    const message = `Olá, gostaria de fazer o seguinte pedido:\\n\\n${itemsText}\\n\\n💵 *Total: R$ ${total}*\\n\\nPor favor, confirme a disponibilidade.`;
+    const mensagem = 
+`🍃 *Pedido - Encantos da Terra* 🍃
 
-    window.open(`https://wa.me/+5541996942725?text=${encodeURIComponent(message)}`, '_blank');
+🛒 Itens:
+${itensFormatados}
+
+💰 *Total: R$ ${total}*
+
+Aguardo confirmação de disponibilidade. Obrigado(a)! 🌱`;
+
+    window.open(`https://wa.me/5541996942725?text=${encodeURIComponent(mensagem)}`, '_blank');
 }
+
 function openProductModal(product) {
     if (isModalOpen) return;
 

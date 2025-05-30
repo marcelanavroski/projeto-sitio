@@ -757,44 +757,39 @@ body {
 }
 
 /* Responsivo */
-@media (max-width: 992px) {
-  .modal-body {
-    flex-direction: column;
-  }
-
-  .modal-image-container img {
-    max-height: 300px;
-  }
-}
-
 @media (max-width: 768px) {
   .top-header {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    flex-wrap: wrap;
+    padding: 10px 15px;
   }
 
   .logo {
     height: 45px;
-    margin: 8px 0;
+    order: 2;
+    margin: 10px auto;
+  }
+
+  .menu-btn {
+    order: 1;
   }
 
   .cart-btn {
     order: 3;
-    margin-top: 10px;
   }
 
   .search-bar {
-    order: 2;
+    order: 4;
     width: 100%;
-    margin-top: 10px;
+    margin: 10px 0;
+    padding: 6px 10px;
     border-radius: 12px;
   }
 
-  .sidebar,
-  .cart {
-    width: 100%;
-    max-width: 100%;
+  .search-bar input {
+    font-size: 16px;
   }
 
   .products-grid {
@@ -803,31 +798,27 @@ body {
   }
 
   .product-card {
-    padding: 10px;
+    padding: 12px;
   }
 
   .product-card h3 {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .product-card p {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .product-card button {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    padding: 10px;
   }
 
   .category-filters {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
     padding: 10px;
-    gap: 8px;
-  }
-
-  .category-btn {
-    padding: 8px 14px;
-    font-size: 14px;
   }
 
   .banners-container {
@@ -837,19 +828,26 @@ body {
 
   .modal-content {
     width: 95%;
-    margin: 25% auto;
+    margin: 20% auto;
     padding: 20px;
+  }
+
+  .sidebar,
+  .cart {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .product-actions {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .quantity-input {
@@ -861,11 +859,12 @@ body {
   }
 
   .modal-content {
-    margin: 30% auto;
+    margin: 25% auto;
     padding: 15px;
   }
 
   .modal-body {
+    flex-direction: column;
     gap: 15px;
   }
 
